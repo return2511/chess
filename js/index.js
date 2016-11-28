@@ -4,9 +4,9 @@ void
 function() {
 
 	var winners = [];
-	for (var i = 0; i < 18; i++) {
+	for (var i = 0; i < 15; i++) {
 		winners[i] = [];
-		for (var j = 0; j < 18; j++) {
+		for (var j = 0; j < 15; j++) {
 			winners[i][j] = [];
 		}
 	}
@@ -16,8 +16,8 @@ function() {
 	var computerWin = [];
 	var over = false;
 
-	for (var i = 0; i < 18; i++) {
-		for (var j = 0; j < 14; j++) {
+	for (var i = 0; i < 15; i++) {
+		for (var j = 0; j < 11; j++) {
 			for (var k = 0; k < 5; k++) {
 				winners[i][j + k][count] = true;
 			}
@@ -25,8 +25,8 @@ function() {
 		}
 	}
 
-	for (var i = 0; i < 18; i++) {
-		for (var j = 0; j < 14; j++) {
+	for (var i = 0; i < 15; i++) {
+		for (var j = 0; j < 11; j++) {
 			for (var k = 0; k < 5; k++) {
 				winners[j + k][i][count] = true;
 			}
@@ -34,17 +34,18 @@ function() {
 		}
 	}
 
-	for (var i = 0; i < 14; i++) {
-		for (var j = 0; j < 14; j++) {
+	for (var i = 0; i < 11; i++) {
+		for (var j = 0; j < 11; j++) {
 			for (var k = 0; k < 5; k++) {
 				winners[i + k][j + k][count] = true;
 			}
 			count++;
 		}
 	}
+	console.log(count);
 
-	for (var i = 0; i < 12; i++) {
-		for (var j = 17; j > 3; j--) {
+	for (var i = 0; i < 11; i++) {
+		for (var j = 14; j > 3; j--) {
 			for (var k = 0; k < 5; k++) {
 				winners[i + k][j - k][count] = true;
 			}
@@ -61,9 +62,9 @@ function() {
 
 
 	var chessBox = [];
-	for (var i = 0; i < 18; i++) {
+	for (var i = 0; i < 15; i++) {
 		chessBox[i] = [];
-		for (var j = 0; j < 18; j++) {
+		for (var j = 0; j < 15; j++) {
 			chessBox[i][j] = 0;
 		}
 	}
@@ -71,16 +72,15 @@ function() {
 	var chess = document.getElementById('J_chess');
 	var ctx = chess.getContext("2d");
 	ctx.strokeStyle = "#BFBFBF";
-	for (var i = 0; i < 18; i++) {
+	for (var i = 0; i < 15; i++) {
 		var x = 15 + 30 * i;
 		ctx.moveTo(x, 15);
-		ctx.lineTo(x, 525);
+		ctx.lineTo(x, 435);
 		ctx.stroke();
 		ctx.moveTo(15, x);
-		ctx.lineTo(525, x);
+		ctx.lineTo(435, x);
 		ctx.stroke();
 	}
-
 	var oneStep = function(i, j, me) {
 		ctx.beginPath();
 		ctx.arc(15 + 30 * i, 15 + 30 * j, 13, 0, 2 * Math.PI, false);
@@ -114,7 +114,7 @@ function() {
 			chessBox[i][j] = me ? 1 : 2;
 			for (var k = 0; k < count; k++) {
 				if (winners[i][j][k]) {
-					if(me) {
+					if (me) {
 						myWin[k]++;
 						computerWin[k] = -1;
 					} else {
@@ -122,11 +122,11 @@ function() {
 						computerWin[k]++;
 					}
 				}
-				if (myWin[k] == 5 ||  computerWin[k] == 5) {
-					if(myWin[k] == 5) {
-						setTimeout( "window.alert('black win!!')" , 250);
-					}else if( computerWin[k] == 5) {
-						setTimeout( "window.alert('white win!!')" , 250);
+				if (myWin[k] == 5 || computerWin[k] == 5) {
+					if (myWin[k] == 5) {
+						setTimeout("window.alert('black win!!')", 250);
+					} else if (computerWin[k] == 5) {
+						setTimeout("window.alert('white win!!')", 250);
 					}
 					over = true;
 				}
